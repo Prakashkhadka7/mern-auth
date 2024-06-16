@@ -12,7 +12,7 @@ try {
     res.status(201).json({message: 'User created successfully'});
 
 } catch(error){
-   next(errorHandler(300,"sth already exists"));
+   next(errorHandler(300,"User already exists"));
 }
     
 }); 
