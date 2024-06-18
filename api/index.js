@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.route.js';
 donenv.config();
 const port = process.env.PORT || 3000;
 
+
 mongoose.connect(process.env.MONGO).then(()=> {
     console.log('Connected to MongoDB');
 }).catch((error)=> {
