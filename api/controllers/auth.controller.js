@@ -15,7 +15,7 @@ try
     console.log(res)
 
 } catch(error){
-   next(errorHandler(300,"User already exists"));
+   next(errorHandler(500,"User already exists"));
 }
     
 }); 
