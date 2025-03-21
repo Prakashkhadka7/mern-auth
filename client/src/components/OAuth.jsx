@@ -13,7 +13,8 @@ export default function OAuth() {
          const res = await fetch("/api/auth/google",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body:JSON.stringify({name:result.user.displayName,email:result.user.email,photo:result.user.photoUrl})
+            body:JSON.stringify({name:result.user.displayName,email:result.user.email,photo:result.user.
+              photoURL})
          })
          const data = await res.json();
          dispatch(signInSuccess(data));
@@ -23,8 +24,6 @@ export default function OAuth() {
         }
     }
   return (
-    <div>
-      <button type="button" onClick={handleGoogleClick} className='bg-red-700 text-white rounded-lg p-3 uppercase hover:opacity-95'>Continue with google</button>
-    </div>
+      <button type="button" onClick={handleGoogleClick} className=' bg-red-700 text-white rounded-lg p-3 uppercase hover:opacity-95'>Continue with google</button>
   )
 }
