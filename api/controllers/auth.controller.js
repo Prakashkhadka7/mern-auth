@@ -34,7 +34,7 @@ export const signin = async (req, res, next) => {
     }
     const token = jwt.sign(
       {
-        _id: validUser._id,
+        id: validUser._id,
       },
       process.env.JWT_SECRET
     );

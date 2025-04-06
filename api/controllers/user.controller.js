@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
+import bcrypt from "bcryptjs";
 export const test = ((req, res) => {
     res.json({
         message: 'API is working'
@@ -10,7 +11,7 @@ export const test = ((req, res) => {
 // Update user
 export const updateUser = (async(req, res, next) => {
     console.log(req.params.id);
-    if(req.user._id !== req.params.id){
+    if(req.user.id !== req.params.id){
     // return res.status(403).json({ message: "You can update only your account!" });
     return next(errorHandler(401,"You can update only your account!"));
     }
