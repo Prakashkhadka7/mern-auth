@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 import donenv from 'dotenv';
 import userRoutes from './routes/user.route.js';
 import authRoutes from './routes/auth.route.js';
+import imageRoutes from './routes/image.route.js';
+import cors from "cors";
+import cookieParser from 'cookie-parser';
 
 
 donenv.config();
@@ -16,7 +19,9 @@ mongoose.connect(process.env.MONGO).then(()=> {
 });
 
 const app = express();
+app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 app.listen(port ,()=> {
     console.log(`Server listening on port ${port}!`);
 })
@@ -24,6 +29,8 @@ app.listen(port ,()=> {
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/images", imageRoutes);
+
 
 app.use((error, req, res, next) => {
     const statusCode = error.statusCode || 500;
