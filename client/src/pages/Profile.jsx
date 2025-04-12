@@ -3,12 +3,13 @@ import { useRef,useEffect ,useState} from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { updateUserFailure, updateUserStart, updateUserSuccess } from "../redux/user/userSlice";
-
+import { showSuccessToast, showErrorAlert, showConfirmAlert } from "../utils/alert.jsx";
+import { deleteUserSuccess, deleteUserStart, deleteUserFailure } from "../redux/user/userSlice";
 export default function Profile() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const {currentUser, loading, error }= useSelector((state) => state.user);
   const fileRef = useRef(null);
   const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
@@ -29,13 +30,8 @@ export default function Profile() {
     formData.append("image", image);
 
     try {
-      const { data } = await axios.post("http://localhost:4000/api/images/upload", formData);
-      setImageUrl(data.imageUrl);
+      const { data } = await axios.post(`${apiUrl}/api/images/upload`, formData);
       setFormData({ ...formData, profilePicture: data.imageUrl });
-
-      // const currentUserData  = currentUser;
-      // currentUserData.profilePicture = data.imageUrl;
-      // localStorage.setItem("currentUser", JSON.stringify(currentUserData));
       
     } catch (error) {
       console.error("Upload failed", error);
@@ -63,6 +59,34 @@ export default function Profile() {
     } catch (error) {
       dispatch(updateUserFailure(error));
     }
+  };
+
+  const handleDelete = () => {
+    showConfirmAlert({
+      title: 'Delete your account?',
+      text: 'This action is permanent.',
+      confirmText: 'Yes, delete it!',
+      cancelText: 'No, cancel',
+      onConfirm: async () => {
+        try {
+          dispatch(deleteUserStart());
+          const response = await fetch(`/api/user/delete/${currentUser._id}`, {
+            method: "DELETE",
+          });
+          const data = await response.json();
+          if (data.success === false) {
+            dispatch(deleteUserFailure(data));
+            showErrorAlert('Failed to delete account.');
+            return;
+          }
+          dispatch(deleteUserSuccess(data));
+          showSuccessToast('Account deleted!');
+        } catch (error) {
+          dispatch(deleteUserFailure(error));
+          showErrorAlert('Failed to delete account.');
+        }
+      },
+    });
   };
 
 
@@ -104,7 +128,7 @@ export default function Profile() {
           {loading ? "Updating..." : "Update"}
         </button>
         <div className="flex justify-between mt-5">
-          <span className="text-red-700 cursor-pointer">Delete Account</span>
+          <span className="text-red-700 cursor-pointer" onClick={handleDelete}>Delete Account</span>
           <span className="text-red-700 cursor-pointer">Sign out</span>
         </div>
       </form>
