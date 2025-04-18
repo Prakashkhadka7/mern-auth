@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FaReact, FaNodeJs, FaDatabase, FaLock } from "react-icons/fa";
+import { RiTailwindCssFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
+
+
 
 export default function About() {
   return (
@@ -13,9 +17,13 @@ export default function About() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl font-bold text-gray-800">About This Project</h1>
+          <h1 className="text-4xl font-bold text-gray-800">
+            About This Project
+          </h1>
           <p className="text-gray-600 text-lg">
-            This is a full-stack authentication application built using the MERN stack. It demonstrates secure user login, signup, and role-based access using technologies like JWT and bcrypt.
+            This is a full-stack authentication application built using the MERN
+            stack. It demonstrates secure user login(with google as well), signup, image upload and profile update
+            access using technologies like JWT and bcrypt.
           </p>
 
           <div className="space-y-2">
@@ -25,14 +33,16 @@ export default function About() {
               <FaNodeJs title="Node.js" />
               <FaDatabase title="MongoDB" />
               <FaLock title="JWT Auth" />
+              <RiTailwindCssFill title="Tailwind CSS" />
             </div>
           </div>
 
           <div className="mt-4 space-y-2">
-            <h2 className="text-xl font-semibold text-gray-700">Key Features</h2>
+            <h2 className="text-xl font-semibold text-gray-700">
+              Key Features
+            </h2>
             <ul className="list-disc list-inside text-gray-600">
               <li>JWT-based Authentication</li>
-              <li>Role-Based Authorization</li>
               <li>Protected Routes</li>
               <li>Frontend + Backend Integration</li>
               <li>Clean, Responsive UI with Tailwind CSS</li>
@@ -40,12 +50,24 @@ export default function About() {
           </div>
 
           <div className="pt-6 flex gap-4">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl text-base">
-              View GitHub
-            </Button>
-            <Button variant="outline" className="text-blue-600 border-blue-600 px-6 py-2 rounded-xl text-base">
-              Home
-            </Button>
+            <a
+              href="https://github.com/Prakashkhadka7/mern-auth"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-xl text-base">
+                View GitHub
+              </Button>
+            </a>
+
+            <Link to="/">
+              <Button
+                variant="outline"
+                className="text-blue-600 border-blue-600 px-6 py-2 rounded-xl text-base"
+              >
+                Home
+              </Button>
+            </Link>
           </div>
         </motion.div>
 
@@ -65,12 +87,13 @@ export default function About() {
                 Built with Security in Mind
               </h2>
               <p className="text-gray-500 text-sm text-center mt-2">
-                Protecting user data through secure login systems, encrypted passwords, and token validation.
+                Protecting user data through secure login systems, encrypted
+                passwords, and token validation.
               </p>
             </div>
           </div>
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
