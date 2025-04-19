@@ -129,9 +129,6 @@ node api/index.js
 
 ---
 
-## 📜 License
-
-Licensed under the MIT License. Feel free to fork and customize.
 
 ---
 
