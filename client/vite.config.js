@@ -18,6 +18,14 @@ export default defineConfig({
       },
     }
   },
+  rollupOptions: {
+    output: {
+      manualChunks: {
+        vendor: ['react', 'react-dom'],
+        axios: ['axios'],
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   signInFailure,
@@ -6,7 +6,8 @@ import {
   signInSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import OAuth from "../components/OAuth";
+
+const OAuth = lazy(() => import("../components/OAuth"));
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -67,7 +68,9 @@ export default function SignIn() {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
-        <OAuth />
+        <Suspense fallback={<div className="text-sm text-slate-500 text-center">Loading…</div>}>
+          <OAuth />
+        </Suspense>
       </form>
 
       <div className="flex gap-1 mt-6 text-sm justify-center">
