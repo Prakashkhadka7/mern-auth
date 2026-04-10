@@ -1,6 +1,6 @@
 # MERN Authentication App ✨
 ## Demo
-[Live Demo](https://mern-auth-ee67.onrender.com/) 
+[Live Demo](https://mern-auth-eosin-eta.vercel.app/) 
 
 
 A full-stack authentication application built using the **MERN stack** — MongoDB, Express.js, React, and Node.js. This project demonstrates secure user authentication, and clean integration between backend and frontend.
